@@ -28,3 +28,17 @@ export var login = {
     name: '',
     password: ''
   }
+
+export var post = (username, post, comments, postcode) => {
+  const user = username;
+  const postsave = post;
+  const postcodesave = postcode;
+  const commentsave = comments;
+  return {
+    user:user,
+    postsave:postsave,
+    postcodesave:postcodesave,
+    commentsave:commentsave
+  }
+}
+
