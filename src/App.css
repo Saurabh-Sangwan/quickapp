@@ -13,6 +13,14 @@
   }
 }
 
+.falseclass{
+  color:rgb(2, 10, 10);
+}
+.trueclass{
+  color:#2d4eb9;
+  
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -1,35 +1,56 @@
 import React from 'react'
 import {login, post} from   './UserData'
-import { useState } from 'react'
-
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 function Home() {
-  const [newpost, setnewpost] = useState('')
-  const [dispost, setdispost] = useState({})
-  var count = 0
+  useEffect(
+    () => {
+      console.log('Something')
+    
+  },[dummy])
+  var store = post.comments
+  var ls = post.likeStatus
+  var dummy = "Hi"
+  const [comms, setcomms] = useState(store)
+  const [like, setlike] = useState(ls) 
+  const [comm, setcomm] = useState('')
+  const [ignition, setignition] = useState(':D')
   const {name} = login
-  const newpo = post("Ram","HELLO", "LIKE IT", 1)
-  const addPost = (par) => {
-    count +=1
-    const text = par
-    const tempost= post(name, text, '', count)
-    console.log(tempost)
-    setdispost(tempost)
+
+  const likeHandler = (index) => {
+    var id = index
+    like[id] = !(like[id])
+    console.log(like)
   }
 
-  console.log(newpo)
+  const commHandler = (index, com) => {
+    var id = index
+    var comment = com
+    comms[id].push(comment)
+    console.log(comms)
+  }
+
   return (
-    <div>Home
+    <div>Home {console.log(like)}
         <br/>
-    {`Welcome ${name}`}<br/>
-    <h3> New post from {newpo.user} </h3>
-    <h1>{newpo.postsave}</h1>    
-    <h4>Comments:<br/>{newpo.commentsave}</h4>
+    
+    <h1 className='App-link'>{`Welcome ${name}`}</h1><br/>
+    <Link to='CreatePost'>CLICK HERE TO CREATE A POST</Link>
+    <h2>YOUR TIMELINE:</h2>
+    {
+      post.feed.map((post, index) => (
+          <ul key={index}>
+            {post}
+            <button className={`${ls[index]}class`} onClick={() => {likeHandler(index); dummy = 'active'} }>LIKE</button>
+            {console.log("MISS ME?")}<br/>
+            <input type='text' onChange={(e) => {setcomm(e.target.value)}}/>      
+            <button  onClick={() =>{ commHandler(index,comm); dummy = 'active'} }>Comment</button><br/>
+            {comms[index]}    
+          </ul>
+      ))
+    }
 
-    {dispost.postsave}<br/>
-
-    Create new post <h1>+</h1>
-    <textarea rows='10' cols='60' onChange={(e) => setnewpost(e.target.value)} />
-    <button onClick={() => addPost(newpost)}>ADD POST</button>
+  
     </div>
   );
 }
